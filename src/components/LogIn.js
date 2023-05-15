@@ -1,30 +1,48 @@
 import React, { useState } from 'react'
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom'
-import auth from '../firebase';
+import { auth } from './firebase'
+import { useStateValue } from './StateProvider'
 const LogIn = () => {
+    const [{ user }, dispatch] = useStateValue();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const login = (e) => {
         e.preventDefault();
-        auth.signInWithEmailAndPassword(email, password)
+
+        auth
+            .signInWithEmailAndPassword(email, password)
             .then((auth) => {
                 //logged in , redirect to home page
                 navigate('/')
+                dispatch({
+                    type: 'SET_USER',
+                    user: email
+                });
+                localStorage.setItem('userEmail', email)
             })
             .catch((e) => alert(e.message))
+
     }
 
     const register = (e) => {
         e.preventDefault();
         //Do register logic
-        auth.createUserWithEmailAndPassword(email, password)
+        auth
+            .createUserWithEmailAndPassword(email, password)
             .then((auth) => {
                 //create a user and logged in and redirect... to the home page
                 navigate('/')
+                dispatch({
+                    type: 'SET_USER',
+                    user: email
+                });
+                localStorage.setItem('userEmail', email)
             })
             .catch((e) => alert(e.message))
+
+
     }
     return (
         <div className='login'>

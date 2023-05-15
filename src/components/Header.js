@@ -3,9 +3,19 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 // import { Link } from 'react-router-dom'
 import { useStateValue } from './StateProvider'
+import { auth } from "./firebase";
 const Header = () => {
-  const [{ basket }] = useStateValue();
-  console.log(basket)
+  const [{ basket, user }, dispatch] = useStateValue();
+  const login = () => {
+    if (user) {
+      dispatch({
+        type: 'SET_USER',
+        user: null
+      });
+      localStorage.removeItem('userEmail')
+      auth.signOut();
+    }
+  }
   return (
     <div className="header">
       <Link to="/">
@@ -21,10 +31,14 @@ const Header = () => {
         <i className="fa-solid fa-magnifying-glass"></i>
       </div>
       <div className="header-nav">
-        <div className="header__option">
-          <span className="header__option_one">Hello Guest</span>
-          <span className="header__option_two">Sign In</span>
-        </div>
+        <Link to={!user && '/login'}>
+          <div className="header__option">
+
+            <span className="header__option_one">Hello {user} </span>
+            <span className="header__option_two" onClick={login}>{!user ? "Sign In" : "Sign Out"}</span>
+
+          </div>
+        </Link>
         <div className="header__option">
           <span className="header__option_one">Returns</span>
           <span className="header__option_two">& Orders</span>
