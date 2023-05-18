@@ -1,19 +1,22 @@
 import React from "react";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { Link } from 'react-router-dom'
 import { useStateValue } from './StateProvider'
 import { auth } from "./firebase";
 const Header = () => {
   const [{ basket, user }, dispatch] = useStateValue();
+  const navigate = useNavigate();
   const login = () => {
     if (user) {
+      navigate('/')
       dispatch({
         type: 'SET_USER',
         user: null
       });
       localStorage.removeItem('userEmail')
       auth.signOut();
+
     }
   }
   return (
@@ -34,7 +37,7 @@ const Header = () => {
         <Link to={!user && '/login'}>
           <div className="header__option">
 
-            <span className="header__option_one">Hello {user} </span>
+            <span className="header__option_one">Hello {!user ? "Guest" : user} </span>
             <span className="header__option_two" onClick={login}>{!user ? "Sign In" : "Sign Out"}</span>
 
           </div>

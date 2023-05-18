@@ -4,11 +4,12 @@ import Subtotal from './Subtotal'
 import { useStateValue } from './StateProvider'
 import CheckoutProduct from './CheckoutProduct'
 const Checkout = () => {
-  const [{ basket }] = useStateValue();
+  const [{ basket, user }] = useStateValue();
   return (
     <div className='checkout'>
       <div className='checkout__left'>
         <img src='https://images-eu.ssl-images-amazon.com/images/G/31/img23/Fashion/BAU/Bank/March/V1/apay.png' className='checkout_ad' alt='here is' />
+        <h4>Hello {user}</h4>
         {basket?.length === 0 ? (
           <h2>Your basket is empty</h2>) : (
           <div className='checkout__title'>
