@@ -8,7 +8,7 @@ import CurrencyFormat from 'react-currency-format';
 import { getBasketTotal } from '../reducer';
 import axios from './axios';
 const Payments = () => {
-    const [{ basket, user }] = useStateValue();
+    const [{ basket, user }, dispatch] = useStateValue();
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
@@ -42,7 +42,10 @@ const Payments = () => {
             setSucceeded(true)
             setError(null)
             setProcessing(false)
-            navigate('/orders')
+            dispatch({
+                type: 'EMPTY_BASKET'
+            })
+            navigate('/')
         })
     }
     const handleChange = (event) => {

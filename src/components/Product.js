@@ -1,10 +1,12 @@
 import React from "react";
 import "./Product.css";
 import { useStateValue } from "./StateProvider";
+import { useNavigate } from "react-router-dom";
 
 
 const Product = ({ id, title, price, rating, image }) => {
-  const [{ }, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
+  const navigate = useNavigate()
 
   // const addToBasket = () => {
   //   console.log("hello");
@@ -21,16 +23,20 @@ const Product = ({ id, title, price, rating, image }) => {
   // };
 
   const addToBasket = () => {
-    dispatch({
-      type: 'ADD_TO_BASKET',
-      item: {
-        id: id,
-        title: title,
-        image: image,
-        price: price,
-        rating: rating,
-      },
-    });
+    if (!user) {
+      navigate('/login')
+    } else {
+      dispatch({
+        type: 'ADD_TO_BASKET',
+        item: {
+          id: id,
+          title: title,
+          image: image,
+          price: price,
+          rating: rating,
+        },
+      });
+    }
   }
   return (
     <div className="product" key={id}>
