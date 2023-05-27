@@ -31,3 +31,15 @@
 .payments__details {
     flex: 0.8;
 }
+
+@media(max-width:500px) {
+    .payments__title h3 {
+        font-size: 15px;
+    }
+}
+
+@media(max-width:400px) {
+    .payments__title h3 {
+        font-size: 12px;
+    }
+}

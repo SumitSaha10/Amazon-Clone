@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { Link } from 'react-router-dom'
 import { useStateValue } from './StateProvider'
 import { auth } from "./firebase";
+import logo from '../images/amazon-logo.png'
 const Header = () => {
   const [{ basket, user }, dispatch] = useStateValue();
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Header = () => {
       <Link to="/">
         <img
           className="header-logo"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgramWKfkXFb5S4tnG0JZgQNSgkRA7o14II3NYA5hq&s"
+          src={logo}
           alt="here is"
         />
       </Link>
@@ -42,11 +43,11 @@ const Header = () => {
 
           </div>
         </Link>
-        <div className="header__option">
+        <div id="second__option" className="header__option">
           <span className="header__option_one">Returns</span>
           <span className="header__option_two">& Orders</span>
         </div>
-        <div className="header__option">
+        <div id="third__option" className="header__option">
           <span className="header__option_one">Your</span>
           <span className="header__option_two">Prime</span>
         </div>

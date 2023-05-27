@@ -30,3 +30,16 @@
     padding: 4px;
     cursor: pointer;
 }
+
+@media(max-width:550px) {
+    .checkoutProduct__image {
+
+        width: 140px;
+        height: 140px;
+    }
+
+    .checkoutProduct__title {
+        font-size: 12px;
+
+    }
+}

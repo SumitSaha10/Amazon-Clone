@@ -42,6 +42,7 @@ const Payments = () => {
             setSucceeded(true)
             setError(null)
             setProcessing(false)
+            alert("Successfully buy products")
             dispatch({
                 type: 'EMPTY_BASKET'
             })
